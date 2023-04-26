@@ -1,0 +1,39 @@
+version: '3.6'
+services:
+  glpi:
+    image: itrevko/glpi:10.0.7
+    container_name: glpi
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    restart: always
+    depends_on:
+      - mariadb
+    networks:
+      - app-tier
+    ports:
+      - '8088:80'
+    volumes:
+      - /mnt/docker/glpi:/app/files
+  mariadb:
+    image: mariadb:10.7.8
+    container_name: mariadb
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: superpass
+      MARIADB_DATABASE: glpidb
+      MARIADB_USER: glpiuser
+      MARIADB_PASSWORD: glpipass
+    networks:
+      - app-tier
+    volumes:
+      - /mnt/docker/mariadb:/var/lib/mysql
+networks:
+  app-tier: {}
