@@ -14,7 +14,7 @@ services:
     networks:
       - app-tier
     ports:
-      - '8088:80'
+      - '80:80'
     volumes:
       - /mnt/docker/glpi:/app/files
   mariadb:
