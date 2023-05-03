@@ -22,7 +22,9 @@ fi
 #Add trusted certificates to "ldap-truststore"
 if [ "$LDAP_TRUSTED_CERTIFICATES" != 'none' ]; then
     echo "Adding certificates to truststore..."
-    echo "$LDAP_TRUSTED_CERTIFICATES" | base64 -d > /etc/openldap/my-certificates/extra.pem
+    echo "TLS_CACERT /etc/openldap/my-certificates/extra.pem" >> /etc/openldap/ldap.conf
+    mkdir /etc/openldap/my-certificates
+    echo "$LDAP_TRUSTED_CERTIFICATES" | base64 -d >> /etc/openldap/my-certificates/extra.pem
 fi
 
 
