@@ -59,19 +59,19 @@ if [ -f "${FOLDER_WEB}/files/glpi_is_installed" ]; then
     echo "GLPI is already installed."
     cd ${FOLDER_WEB} && php bin/console db:configure --db-host=${DB_HOST} --db-port=${DB_PORT} --db-name=${DB_NAME} --db-user=${DB_USER} --db-password=${DB_PASSWORD} --no-interaction
     cp ${FOLDER_WEB}/files/glpicrypt.key ${FOLDER_WEB}${FOLDER_GLPI}/config/glpicrypt.key
-    if [ "$(php bin/console glpi:database:check | grep OK)" ]; then
+    if [ "$(php bin/console db:check_schema_integrity --check-all-migrations | grep OK.)" ]; then
         echo "DB is already actual."
     else
         php bin/console glpi:maintenance:enable
         php bin/console task:unlock -a
-        php bin/console db:update
-        if [ "$(php bin/console glpi:database:check | grep OK)" ]; then
+        php bin/console db:update --no-interaction --skip-db-checks
+        if [ "$(php bin/console db:check_schema_integrity --check-all-migrations | grep OK.)" ]; then
             php bin/console glpi:maintenance:disable
             echo "DB is successfully updated."
         else
             php bin/console glpi:maintenance:disable
             rm -rf ${FOLDER_WEB}/files/glpi_is_starting
-            echo "DB is corrupted. Please check and fix DB, run it in glpi-webroot directory: php bin/console glpi:database:check"
+            echo "DB is corrupted. Please check and fix DB, run it in glpi-webroot directory: php bin/console db:check_schema_integrity --check-all-migrations"
             exit 1
         fi
     fi
