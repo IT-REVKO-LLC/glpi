@@ -1,4 +1,4 @@
-FROM webdevops/php-nginx:8.2-alpine
+FROM webdevops/php-nginx:8.4-alpine
 
 ENV WEB_DOCUMENT_ROOT=/app/public \
     DB_HOST=mariadb \
@@ -12,7 +12,7 @@ ENV WEB_DOCUMENT_ROOT=/app/public \
     REDIS_PASS=${REDIS_PASS} \
     REDIS_DB=${REDIS_DB}
 
-RUN wget -O /glpi.tgz https://github.com/glpi-project/glpi/releases/download/10.0.18/glpi-10.0.18.tgz
+RUN wget -O /glpi.tgz https://github.com/glpi-project/glpi/releases/download/10.0.19/glpi-10.0.19.tgz
 
 COPY init.sh /opt/docker/
 RUN chmod +x /opt/docker/init.sh
