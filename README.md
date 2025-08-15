@@ -1,5 +1,5 @@
 ### INFO
-The Docker Image for Non-Interactive Deploy the GLPI with Docker\Docker-Compose\Kubernetes. This image based on "webdevops/php-nginx:8.2-alpine"
+The Docker Image for Non-Interactive Deploy the GLPI with Docker\Docker-Compose\Kubernetes. This image based on "webdevops/php-nginx:8.4-alpine"
 
 ### GitHub
 https://github.com/IT-REVKO-LLC/glpi
@@ -14,7 +14,7 @@ And then we can enter to GLPI by ```http://docker-host-ip```
 ### Environment variables
 | Variable                  | Description                                          | Default     |
 |---------------------------|------------------------------------------------------|-------------|
-| WEB_DOCUMENT_ROOT         | Path to web root(needed by webdevops/php:8.2-alpine) | /app/public |
+| WEB_DOCUMENT_ROOT         | Path to web root(needed by webdevops/php:8.4-alpine) | /app/public |
 | DB_HOST                   | Hostname for DataBase                                | mariadb     |
 | DB_PORT                   | Port number for DataBase                             | 3306        |
 | DB_NAME                   | Name of DataBase                                     | glpidb      |
