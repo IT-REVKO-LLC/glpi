@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   glpi:
-    image: itrevko/glpi:10.0.14
+    image: itrevko/glpi:10.0.19
     container_name: glpi
     logging:
       driver: "json-file"
@@ -18,7 +18,7 @@ services:
     volumes:
       - /mnt/docker/glpi:/app/files
   mariadb:
-    image: mariadb:10.10.7
+    image: mariadb:10.11.14
     container_name: mariadb
     logging:
       driver: "json-file"
