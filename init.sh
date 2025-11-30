@@ -51,33 +51,33 @@ touch ${FOLDER_WEB}/files/glpi_is_starting
 
 # Installation
 if [ "${REDIS_IS_USED}" == "true" ]; then
-    cd ${FOLDER_WEB} && php bin/console glpi:cache:configure --dsn=redis://${REDIS_PASS}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB} --no-interaction
+    cd ${FOLDER_WEB} && php bin/console glpi:cache:configure --dsn=redis://${REDIS_PASS}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB} --no-interaction --allow-superuser
 fi
 
 #Checking for GLPI is installed and update\check DB if needed
 if [ -f "${FOLDER_WEB}/files/glpi_is_installed" ]; then
     echo "GLPI is already installed."
-    cd ${FOLDER_WEB} && php bin/console db:configure --db-host=${DB_HOST} --db-port=${DB_PORT} --db-name=${DB_NAME} --db-user=${DB_USER} --db-password=${DB_PASSWORD} --no-interaction
+    cd ${FOLDER_WEB} && php bin/console db:configure --db-host=${DB_HOST} --db-port=${DB_PORT} --db-name=${DB_NAME} --db-user=${DB_USER} --db-password=${DB_PASSWORD} --no-interaction --allow-superuser
     cp ${FOLDER_WEB}/files/glpicrypt.key ${FOLDER_WEB}${FOLDER_GLPI}/config/glpicrypt.key
-    if [ "$(php bin/console db:check_schema_integrity --check-all-migrations | grep OK.)" ]; then
+    if [ "$(php bin/console db:check_schema_integrity --check-all-migrations --allow-superuser | grep OK.)" ]; then
         echo "Database schema is OK."
-        php bin/console glpi:maintenance:enable
-        php bin/console db:update --no-interaction --skip-db-checks
-        if [ "$(php bin/console db:check_schema_integrity --check-all-migrations | grep OK.)" ]; then
-            php bin/console glpi:maintenance:disable
+        php bin/console glpi:maintenance:enable --allow-superuser
+        php bin/console db:update --no-interaction --skip-db-checks --allow-superuser
+        if [ "$(php bin/console db:check_schema_integrity --check-all-migrations --allow-superuser | grep OK.)" ]; then
+            php bin/console glpi:maintenance:disable --allow-superuser
             echo "DB is ready."
         else
-            php bin/console glpi:maintenance:disable
+            php bin/console glpi:maintenance:disable --allow-superuser
             rm -rf ${FOLDER_WEB}/files/glpi_is_starting
             echo "DB is corrupted. Please check and fix DB, run it in glpi-webroot directory: php bin/console db:check_schema_integrity --check-all-migrations"
             exit 1
         fi
     fi
 else
-    cd ${FOLDER_WEB} && php bin/console db:install --db-host=${DB_HOST} --db-port=${DB_PORT} --db-name=${DB_NAME} --db-user=${DB_USER} --db-password=${DB_PASSWORD} --no-interaction
+    cd ${FOLDER_WEB} && php bin/console db:install --db-host=${DB_HOST} --db-port=${DB_PORT} --db-name=${DB_NAME} --db-user=${DB_USER} --db-password=${DB_PASSWORD} --no-interaction --allow-superuser
     touch ${FOLDER_WEB}/files/glpi_is_installed
     cp ${FOLDER_WEB}/config/glpicrypt.key ${FOLDER_WEB}/files/glpicrypt.key
-    
+
     echo "GLPI is successfully installed."
 fi
 
