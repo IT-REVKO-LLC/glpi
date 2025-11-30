@@ -12,7 +12,7 @@ ENV WEB_DOCUMENT_ROOT=/app/public \
     REDIS_PASS=${REDIS_PASS} \
     REDIS_DB=${REDIS_DB}
 
-RUN wget -O /glpi.tgz https://github.com/glpi-project/glpi/releases/download/10.0.19/glpi-10.0.19.tgz
+RUN wget -O /glpi.tgz https://github.com/glpi-project/glpi/releases/download/11.0.2/glpi-11.0.2.tgz
 
 COPY init.sh /opt/docker/
 RUN chmod +x /opt/docker/init.sh
