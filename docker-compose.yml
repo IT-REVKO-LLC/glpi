@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   glpi:
-    image: itrevko/glpi:11.0.4
+    image: itrevko/glpi:11.0.5
     container_name: glpi
     logging:
       driver: "json-file"
