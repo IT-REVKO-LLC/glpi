@@ -1,6 +1,9 @@
 ### INFO
 The Docker Image for Non-Interactive Deploy the GLPI with Docker\Docker-Compose\Kubernetes. This image based on "webdevops/php-nginx:8.4-alpine"
 
+### SSO
+The docker image contained the "singlesignon" Plugin - https://github.com/edgardmessias/glpi-singlesignon
+
 ### GitHub
 https://github.com/IT-REVKO-LLC/glpi
 
