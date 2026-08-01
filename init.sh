@@ -1,7 +1,13 @@
 FOLDER_WEB=/app
 
 # Extracting glpi
-tar zxf /glpi.tgz -C ${FOLDER_WEB} --strip-components=1 --skip-old-files && chown 1000:1000 -R ${FOLDER_WEB}
+tar zxf /glpi.tgz -C ${FOLDER_WEB} --strip-components=1 --skip-old-files
+
+# Extracting sso-plugin
+tar zxf /singlesignon.tgz -C ${FOLDER_WEB}/plugins
+
+# Setting permissions
+chown 1000:1000 -R ${FOLDER_WEB}
 
 # Removing install.php because of not needed
 rm -rf ${FOLDER_WEB}/install/install.php
