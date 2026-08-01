@@ -13,6 +13,7 @@ ENV WEB_DOCUMENT_ROOT=/app/public \
     REDIS_DB=${REDIS_DB}
 
 RUN wget -O /glpi.tgz https://github.com/glpi-project/glpi/releases/download/11.0.8/glpi-11.0.8.tgz
+RUN wget -O /singlesignon.tgz https://github.com/edgardmessias/glpi-singlesignon/releases/download/v2.0.3/singlesignon.tgz
 
 COPY init.sh /opt/docker/
 RUN chmod +x /opt/docker/init.sh
